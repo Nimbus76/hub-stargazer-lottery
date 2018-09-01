@@ -3,6 +3,45 @@ import random
 import sys
 import urllib.request
 
+def main():
+
+    content = True
+    page = 1
+    count = 0
+    stargazers = set()
+    url = 'https://api.github.com/repos/LiskHQ/lisk-hub/stargazers?page='
+
+    print("Fetching Lisk Stargazers ...")
+
+    while content == True:
+
+        response_json = getStargazerPage(url, page)
+
+        if bool(response_json) == True:
+    
+            stargazers, count = pullStargazers(response_json, stargazers, count)
+
+            page += 1
+            
+        else:
+
+            content = False
+        
+    
+    winner1, winner2, winner3 = pickWinners(stargazers)
+
+    reportWinners(winner1, winner2, winner3, count, stargazers)
+
+    input("Press any key to list Lisk Stargazers.")
+    
+    
+    printStargazers(stargazers)
+
+    print()
+    print()
+
+    input('Press any key to Exit')
+
 
 def getStargazerPage(url, page):
 
@@ -71,44 +110,5 @@ def printStargazers(stargazers):
     for each in stargazersList:
 
         print(each, end = " ")    
-
-def main():
-
-    content = True
-    page = 1
-    count = 0
-    stargazers = set()
-    url = 'https://api.github.com/repos/LiskHQ/lisk-hub/stargazers?page='
-
-    print("Fetching Lisk Stargazers ...")
-
-    while content == True:
-
-        response_json = getStargazerPage(url, page)
-
-        if bool(response_json) == True:
-    
-            stargazers, count = pullStargazers(response_json, stargazers, count)
-
-            page += 1
-            
-        else:
-
-            content = False
-        
-    
-    winner1, winner2, winner3 = pickWinners(stargazers)
-
-    reportWinners(winner1, winner2, winner3, count, stargazers)
-
-    input("Press any key to list Lisk Stargazers.")
-    
-    
-    printStargazers(stargazers)
-
-    print()
-    print()
-
-    input('Press any key to Exit')
 
 main()
