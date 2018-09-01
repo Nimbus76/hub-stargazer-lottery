@@ -81,9 +81,11 @@ def pickWinners(stargazers):
 
     stargazersList = list(stargazers)
 
-    winner1 = stargazersList[random.randrange(len(stargazers))]
-    winner2 = stargazersList[random.randrange(len(stargazers))]
-    winner3 = stargazersList[random.randrange(len(stargazers))]
+    winner1 = stargazersList[random.randrange(len(stargazersList))]
+    stargazersList.remove(winner1)
+    winner2 = stargazersList[random.randrange(len(stargazersList))]
+    stargazersList.remove(winner2)
+    winner3 = stargazersList[random.randrange(len(stargazersList))]
 
     return winner1, winner2, winner3
 
